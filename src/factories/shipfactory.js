@@ -1,4 +1,4 @@
-const shipFactory = (length) => {
+const shipFactory = (length, id) => {
   const shipPositions = [...Array(length).keys()].map((x) => undefined);
 
   const hit = (position) => {
@@ -8,7 +8,7 @@ const shipFactory = (length) => {
 
   const isSunk = () => shipPositions.every((item) => item === "X");
 
-  return { length, hit, isSunk };
+  return { length, hit, isSunk, id };
 };
 
 export default shipFactory;
