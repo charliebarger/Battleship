@@ -4,15 +4,17 @@ const gameboard = () => {
   );
   let ships = [];
 
+  const gameOver = () => ships.every((ship) => ship.isSunk() === true);
+
   const addShips = (ship) => {
     ships.push(ship);
   };
 
   const placeShips = (columnStart, rowStart, ship) => {
-    if (rowStart + ship.length < 9) {
+    let i = 0;
+    if (rowStart + ship.length < 10) {
       board[columnStart] = board[columnStart].map((item, index) => {
         if (index >= rowStart && index < rowStart + ship.length) {
-          let i = 0;
           item = { shipName: ship, position: i, hit: false };
           i++;
         }
@@ -25,18 +27,20 @@ const gameboard = () => {
     }
   };
   const recieveAttack = (column, row) => {
+    const bombLocation = board[column][row];
     if (
-      board[column][row] !== undefined &&
-      board[column][row] !== "O" &&
-      board[column][row].hit !== true
+      bombLocation !== undefined &&
+      bombLocation !== "O" &&
+      bombLocation.hit !== true
     ) {
-      board[column][row].hit = true;
+      bombLocation.hit = true;
+      bombLocation.shipName.hit(bombLocation.position);
     } else {
       board[column][row] = "O";
     }
   };
 
-  return { board, placeShips, recieveAttack, ships };
+  return { board, placeShips, recieveAttack, ships, gameOver };
 };
 
 export default gameboard;

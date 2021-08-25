@@ -8,7 +8,7 @@ const shipFactory = (length, id) => {
 
   const isSunk = () => shipPositions.every((item) => item === "X");
 
-  return { length, hit, isSunk, id };
+  return { length, hit, isSunk, id, shipPositions };
 };
 
 export default shipFactory;

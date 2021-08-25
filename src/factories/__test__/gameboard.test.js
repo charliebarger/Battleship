@@ -41,3 +41,26 @@ it("make sure ship is added to ships", () => {
   game.placeShips(0, 0, dingy);
   expect(game.ships[0]).toMatchObject(dingy);
 });
+
+it("test position", () => {
+  const game = gameboard();
+  const dingy = shipFactory(4, "dingy");
+  game.placeShips(2, 5, dingy);
+  expect(game.board[2][5].position).toBe(0);
+  expect(game.board[2][7].position).toBe(2);
+});
+
+describe("test game over", () => {
+  const game = gameboard();
+  const dingy1 = shipFactory(2, "dingy1");
+  game.placeShips(0, 5, dingy1);
+  const dingy2 = shipFactory(2, "dingy2");
+  game.placeShips(1, 5, dingy2);
+  it("game over", () => {
+    game.recieveAttack(0, 5);
+    game.recieveAttack(0, 6);
+    game.recieveAttack(1, 5);
+    game.recieveAttack(1, 6);
+    expect(game.gameOver()).toBe(true);
+  });
+});

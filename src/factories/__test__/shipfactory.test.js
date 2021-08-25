@@ -8,22 +8,6 @@ describe("Ship with length of 5", () => {
       length: 5,
     });
   });
-  it("hit position", () => {
-    expect(shipObject.hit(3, shipObject)).toMatchObject([
-      undefined,
-      undefined,
-      undefined,
-      "X",
-      undefined,
-    ]);
-    expect(shipObject.hit(2)).toMatchObject([
-      undefined,
-      undefined,
-      "X",
-      "X",
-      undefined,
-    ]);
-  });
   it("check that ship is not sunk", () => {
     expect(shipObject.isSunk()).toBeFalsy();
   });
