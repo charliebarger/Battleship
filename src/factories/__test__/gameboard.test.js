@@ -32,6 +32,34 @@ describe("place ship within boandaries", () => {
   });
 });
 
+describe.only("rotate ship test", () => {
+  const game = gameboard();
+  const battleship1 = shipFactory(5, "battleship");
+  game.placeShips(5, 0, battleship1);
+  const battleship2 = shipFactory(5, "battleship");
+  battleship2.toggleRotate();
+  it("end of ship unavailable", () => {
+    expect(
+      game.checkAvailability(1, 0, battleship2.length, battleship2.rotate)
+    ).toBeFalsy();
+  });
+  it("begining of ship unavailable", () => {
+    expect(
+      game.checkAvailability(4, 0, battleship2.length, battleship2.rotate)
+    ).toBeFalsy();
+  });
+  it("should be available", () => {
+    expect(
+      game.checkAvailability(0, 0, battleship2.length, battleship2.rotate)
+    ).toBeTruthy();
+  });
+  it("should be available because of row", () => {
+    expect(
+      game.checkAvailability(1, 9, battleship2.length, battleship2.rotate)
+    ).toBeTruthy();
+  });
+});
+
 it("place ship outside of boundaries", () => {
   const game = gameboard();
   expect(game.placeShips(9, 9, 5)).toBeFalsy();

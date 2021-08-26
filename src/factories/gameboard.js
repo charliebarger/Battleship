@@ -11,16 +11,34 @@ const gameboard = () => {
     ships.push(ship);
   };
 
-  const checkAvailability = (columnStart, rowStart, shipLength) => {
-    return (
-      board[columnStart]
-        .slice(rowStart, rowStart + shipLength)
-        .every((item) => item === undefined) && rowStart + shipLength < 10
-    );
+  const checkAvailability = (
+    columnStart,
+    rowStart,
+    shipLength,
+    shipRotated
+  ) => {
+    if (!shipRotated) {
+      return (
+        board[columnStart]
+          .slice(rowStart, rowStart + shipLength)
+          .every((item) => item === undefined) && rowStart + shipLength < 10
+      );
+    } else {
+      let hi =
+        board
+          .filter(
+            (item, index) =>
+              index >= columnStart && index < columnStart + shipLength
+          )
+          .every((item) => item[rowStart] === undefined) &&
+        columnStart + shipLength < 10;
+      console.log(hi);
+      return hi;
+    }
   };
 
   const placeShips = (columnStart, rowStart, ship) => {
-    if (checkAvailability(columnStart, rowStart, ship.length)) {
+    if (checkAvailability(columnStart, rowStart, ship.length, ship.rotate)) {
       for (let i = rowStart, j = 0; i < rowStart + ship.length; i++, j++) {
         board[columnStart][i] = { shipName: ship, position: j, hit: false };
       }
