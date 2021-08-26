@@ -2,6 +2,7 @@ const gameboard = () => {
   let board = [...Array(10).keys()].map((x) =>
     [...Array(10).keys()].map((x) => undefined)
   );
+
   let ships = [];
 
   const gameOver = () => ships.every((ship) => ship.isSunk() === true);
@@ -10,29 +11,37 @@ const gameboard = () => {
     ships.push(ship);
   };
 
+  const checkAvailability = (columnStart, rowStart, shipLength) => {
+    return (
+      board[columnStart]
+        .slice(rowStart, rowStart + shipLength)
+        .every((item) => item === undefined) && rowStart + shipLength < 10
+    );
+  };
+
   const placeShips = (columnStart, rowStart, ship) => {
-    let i = 0;
-    if (rowStart + ship.length < 10) {
-      board[columnStart] = board[columnStart].map((item, index) => {
-        if (index >= rowStart && index < rowStart + ship.length) {
-          item = { shipName: ship, position: i, hit: false };
-          i++;
-        }
-        return item;
-      });
+    if (checkAvailability(columnStart, rowStart, ship.length)) {
+      for (let i = rowStart, j = 0; i < rowStart + ship.length; i++, j++) {
+        board[columnStart][i] = { shipName: ship, position: j, hit: false };
+      }
       addShips(ship);
       return true;
     } else {
       return false;
     }
   };
+
+  const checkForHit = (gridLocation) => {
+    return (
+      gridLocation !== undefined &&
+      gridLocation !== "O" &&
+      gridLocation.hit !== true
+    );
+  };
+
   const recieveAttack = (column, row) => {
     const bombLocation = board[column][row];
-    if (
-      bombLocation !== undefined &&
-      bombLocation !== "O" &&
-      bombLocation.hit !== true
-    ) {
+    if (checkForHit(bombLocation)) {
       bombLocation.hit = true;
       bombLocation.shipName.hit(bombLocation.position);
     } else {

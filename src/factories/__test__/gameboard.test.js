@@ -56,10 +56,13 @@ describe("test game over", () => {
   game.placeShips(0, 5, dingy1);
   const dingy2 = shipFactory(2, "dingy2");
   game.placeShips(1, 5, dingy2);
-  it("game over", () => {
+  it("game not over", () => {
     game.recieveAttack(0, 5);
     game.recieveAttack(0, 6);
     game.recieveAttack(1, 5);
+    expect(game.gameOver()).toBe(false);
+  });
+  it("game over", () => {
     game.recieveAttack(1, 6);
     expect(game.gameOver()).toBe(true);
   });
