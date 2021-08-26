@@ -49,7 +49,14 @@ const gameboard = () => {
     }
   };
 
-  return { board, placeShips, recieveAttack, ships, gameOver };
+  return {
+    board,
+    placeShips,
+    recieveAttack,
+    ships,
+    gameOver,
+    checkAvailability,
+  };
 };
 
 export default gameboard;
