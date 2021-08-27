@@ -1,7 +1,8 @@
 import generateRandomNumber from "../helpers/helpers";
+import fleet from "../helpers/ships";
 const player = (player) => {
   const getPlayer = () => player;
-
+  const getFleet = () => fleet;
   const attack = (x, y, enemyGameboard) => enemyGameboard.recieveAttack(x, y);
 
   const autoAttack = (enemyGameboard) => {
@@ -14,6 +15,7 @@ const player = (player) => {
       );
     }
   };
+  return { getPlayer, getFleet, attack, autoAttack };
 };
 
 export default player;
