@@ -24,23 +24,29 @@ const gameboard = () => {
           .every((item) => item === undefined) && rowStart + shipLength < 10
       );
     } else {
-      let hi =
+      return (
         board
           .filter(
             (item, index) =>
               index >= columnStart && index < columnStart + shipLength
           )
           .every((item) => item[rowStart] === undefined) &&
-        columnStart + shipLength < 10;
-      console.log(hi);
-      return hi;
+        columnStart + shipLength < 10
+      );
     }
   };
 
   const placeShips = (columnStart, rowStart, ship) => {
     if (checkAvailability(columnStart, rowStart, ship.length, ship.rotate)) {
-      for (let i = rowStart, j = 0; i < rowStart + ship.length; i++, j++) {
-        board[columnStart][i] = { shipName: ship, position: j, hit: false };
+      let startPoint = ship.rotate ? columnStart : rowStart;
+      for (let i = startPoint, j = 0; i < startPoint + ship.length; i++, j++) {
+        ship.rotate
+          ? (board[i][rowStart] = { shipName: ship, position: j, hit: false })
+          : (board[columnStart][i] = {
+              shipName: ship,
+              position: j,
+              hit: false,
+            });
       }
       addShips(ship);
       return true;

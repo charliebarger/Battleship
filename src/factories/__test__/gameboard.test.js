@@ -32,7 +32,7 @@ describe("place ship within boandaries", () => {
   });
 });
 
-describe.only("rotate ship test", () => {
+describe("rotate ship test", () => {
   const game = gameboard();
   const battleship1 = shipFactory(5, "battleship");
   game.placeShips(5, 0, battleship1);
@@ -112,4 +112,19 @@ describe("test game over", () => {
     game.recieveAttack(1, 6);
     expect(game.gameOver()).toBe(true);
   });
+});
+
+it.only("test placing rotated ship", () => {
+  const game = gameboard();
+  const dingy1 = shipFactory(2, "dingy");
+  const battleship = shipFactory(5, "battleship");
+  battleship.toggleRotate();
+  expect(game.placeShips(0, 0, battleship)).toBeTruthy();
+  console.log(game.board);
+  expect(
+    [0, 1, 2, 3, 4].map(
+      (item) => expect(game.board[item][0].shipName.id) === "battleship"
+    )
+  ).toBeTruthy();
+  expect(game.placeShips(5, 0, battleship)).toBeFalsy();
 });
