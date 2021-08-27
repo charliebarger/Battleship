@@ -1,3 +1,4 @@
+import generateRandomNumber from "../helpers/helpers";
 const gameboard = () => {
   let board = [...Array(10).keys()].map((x) =>
     [...Array(10).keys()].map((x) => undefined)
@@ -55,10 +56,6 @@ const gameboard = () => {
     }
   };
 
-  const generateRandomNumber = (max, min) => {
-    return Math.floor(Math.random() * (max - min) + min);
-  };
-
   const autoPlaceShips = (ship) => {
     let flag;
     while (!flag) {
@@ -69,6 +66,10 @@ const gameboard = () => {
       );
     }
     return true;
+  };
+
+  const autoPlaceAllShips = (ships) => {
+    ships.forEach((ship) => autoPlaceShips(ship));
   };
 
   const checkBombAvailability = (gridLocation) => {
@@ -104,6 +105,7 @@ const gameboard = () => {
     gameOver,
     checkAvailability,
     autoPlaceShips,
+    autoPlaceAllShips,
   };
 };
 

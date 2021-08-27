@@ -1,5 +1,6 @@
 import gameboard from "../gameboard";
 import shipFactory from "../shipfactory";
+import ships from "../../helpers/ships";
 it("expect array of 10 arrays containg 10 undefined items", () => {
   const game = gameboard();
   expect(game.board.length).toBe(10);
@@ -148,11 +149,10 @@ describe("computer palcement", () => {
       shipFactory(5, "battleship5"),
     ];
     expect(ships.every((item) => game.autoPlaceShips(item))).toBeTruthy();
-    console.log(game.board);
   });
 });
 
-describe.only("should not be able to attack same place twice", () => {
+describe("should not be able to attack same place twice", () => {
   const game = gameboard();
   const dingy = shipFactory(2, "dingy");
   game.placeShips(0, 0, dingy);
@@ -161,4 +161,10 @@ describe.only("should not be able to attack same place twice", () => {
     expect(game.board[0][1].hit).toEqual(true);
     expect(game.recieveAttack(0, 1)).toBeFalsy();
   });
+});
+
+it("all ships should be placed automatically", () => {
+  const game = gameboard();
+  game.autoPlaceAllShips(ships);
+  console.log(game.board);
 });

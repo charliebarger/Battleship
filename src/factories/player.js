@@ -1,15 +1,19 @@
-import shipFactory from "./shipfactory";
-import gameboard from "./gameboard";
+import generateRandomNumber from "../helpers/helpers";
 const player = (player) => {
-  const boats = [
-    { name: "Carrier", length: 5 },
-    { name: "Battleship", length: 4 },
-    { name: "Cruiser", length: 3 },
-    { name: "Submarine", length: 3 },
-    { name: "Destroyer", length: 2 },
-  ];
-
   const getPlayer = () => player;
 
-  const placeBoats = () => {};
+  const attack = (x, y, enemyGameboard) => enemyGameboard.recieveAttack(x, y);
+
+  const autoAttack = (enemyGameboard) => {
+    let flag;
+    while (!flag) {
+      flag = attack(
+        generateRandomNumber(0, 9),
+        generateRandomNumber(0, 9),
+        enemyGameboard
+      );
+    }
+  };
 };
+
+export default player;
