@@ -68,8 +68,17 @@ const gameboard = () => {
     return true;
   };
 
-  const autoPlaceAllShips = (ships) => {
-    ships.forEach((ship) => autoPlaceShips(ship));
+  const rotateShips = (shipArray) => {
+    for (let i = 0; i < shipArray.length; i++) {
+      if (Math.floor(Math.random() * 2) + 1 === 2) {
+        shipArray[i].toggleRotate();
+      }
+    }
+  };
+
+  const autoPlaceAllShips = (shipArray) => {
+    rotateShips(shipArray);
+    shipArray.forEach((ship) => autoPlaceShips(ship));
   };
 
   const checkBombAvailability = (gridLocation) => {

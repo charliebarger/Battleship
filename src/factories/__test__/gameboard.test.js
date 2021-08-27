@@ -165,6 +165,6 @@ describe("should not be able to attack same place twice", () => {
 
 it("all ships should be placed automatically", () => {
   const game = gameboard();
-  game.autoPlaceAllShips(ships);
-  console.log(game.board);
+  const fleet = ships.map((ship) => shipFactory(ship.length, ship.name));
+  game.autoPlaceAllShips(fleet);
 });
