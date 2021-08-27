@@ -1,3 +1,4 @@
+import shipFactory from "../factories/shipfactory";
 const ships = [
   { name: "Carrier", length: 5 },
   { name: "Battleship", length: 4 },
@@ -6,4 +7,5 @@ const ships = [
   { name: "Destroyer", length: 2 },
 ];
 
-export default ships;
+const fleet = ships.map((ship) => shipFactory(ship.length, ship.name));
+export default fleet;
