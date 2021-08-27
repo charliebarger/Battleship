@@ -114,17 +114,18 @@ describe("test game over", () => {
   });
 });
 
-it.only("test placing rotated ship", () => {
+describe.only("test placing rotated ship", () => {
   const game = gameboard();
-  const dingy1 = shipFactory(2, "dingy");
   const battleship = shipFactory(5, "battleship");
   battleship.toggleRotate();
-  expect(game.placeShips(0, 0, battleship)).toBeTruthy();
-  console.log(game.board);
-  expect(
-    [0, 1, 2, 3, 4].map(
-      (item) => expect(game.board[item][0].shipName.id) === "battleship"
-    )
-  ).toBeTruthy();
-  expect(game.placeShips(5, 0, battleship)).toBeFalsy();
+  it("Make sure ships can be placed vertically", () =>
+    expect(game.placeShips(0, 0, battleship)).toBeTruthy());
+  it("Check that all vertical locations are filled", () =>
+    expect(
+      [0, 1, 2, 3, 4].map(
+        (item) => expect(game.board[item][0].shipName.id) === "battleship"
+      )
+    ).toBeTruthy());
+  it("check that ships cant be put off grid", () =>
+    expect(game.placeShips(5, 0, battleship)).toBeFalsy());
 });
