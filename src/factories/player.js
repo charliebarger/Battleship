@@ -1,6 +1,6 @@
 import shipFactory from "./shipfactory";
 import gameboard from "./gameboard";
-const player = () => {
+const player = (player) => {
   const boats = [
     { name: "Carrier", length: 5 },
     { name: "Battleship", length: 4 },
@@ -8,4 +8,8 @@ const player = () => {
     { name: "Submarine", length: 3 },
     { name: "Destroyer", length: 2 },
   ];
+
+  const getPlayer = () => player;
+
+  const placeBoats = () => {};
 };

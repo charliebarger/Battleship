@@ -114,7 +114,7 @@ describe("test game over", () => {
   });
 });
 
-describe.only("test placing rotated ship", () => {
+describe("test placing rotated ship", () => {
   const game = gameboard();
   const battleship = shipFactory(5, "battleship");
   battleship.toggleRotate();
@@ -128,4 +128,37 @@ describe.only("test placing rotated ship", () => {
     ).toBeTruthy());
   it("check that ships cant be put off grid", () =>
     expect(game.placeShips(5, 0, battleship)).toBeFalsy());
+});
+
+describe("computer palcement", () => {
+  const game = gameboard();
+  const battleship = shipFactory(5, "battleship");
+  it("make sure ship is placed", () => {
+    battleship.toggleRotate();
+    expect(game.autoPlaceShips(battleship)).toBeTruthy();
+  });
+  it("add multiple ships", () => {
+    let rotatedShip = shipFactory(5, "battleship2");
+    rotatedShip.toggleRotate();
+    const ships = [
+      rotatedShip,
+      shipFactory(5, "battleship2"),
+      shipFactory(5, "battleship3"),
+      shipFactory(5, "battleship4"),
+      shipFactory(5, "battleship5"),
+    ];
+    expect(ships.every((item) => game.autoPlaceShips(item))).toBeTruthy();
+    console.log(game.board);
+  });
+});
+
+describe.only("should not be able to attack same place twice", () => {
+  const game = gameboard();
+  const dingy = shipFactory(2, "dingy");
+  game.placeShips(0, 0, dingy);
+  it("expect attack to return a hit with true", () => {
+    expect(game.recieveAttack(0, 1)).toBeTruthy();
+    expect(game.board[0][1].hit).toEqual(true);
+    expect(game.recieveAttack(0, 1)).toBeFalsy();
+  });
 });

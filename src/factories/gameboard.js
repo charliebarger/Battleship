@@ -55,22 +55,45 @@ const gameboard = () => {
     }
   };
 
-  const checkForHit = (gridLocation) => {
+  const generateRandomNumber = (max, min) => {
+    return Math.floor(Math.random() * (max - min) + min);
+  };
+
+  const autoPlaceShips = (ship) => {
+    let flag;
+    while (!flag) {
+      flag = placeShips(
+        generateRandomNumber(0, 9),
+        generateRandomNumber(0, 9),
+        ship
+      );
+    }
+    return true;
+  };
+
+  const checkBombAvailability = (gridLocation) => {
     return (
-      gridLocation !== undefined &&
-      gridLocation !== "O" &&
-      gridLocation.hit !== true
+      gridLocation === undefined ||
+      (isObject(gridLocation) && gridLocation.hit === false)
     );
+  };
+
+  const isObject = (obj) => {
+    return Object.prototype.toString.call(obj) === "[object Object]";
   };
 
   const recieveAttack = (column, row) => {
     const bombLocation = board[column][row];
-    if (checkForHit(bombLocation)) {
-      bombLocation.hit = true;
-      bombLocation.shipName.hit(bombLocation.position);
-    } else {
-      board[column][row] = "O";
+    if (checkBombAvailability(bombLocation)) {
+      if (bombLocation === undefined) {
+        board[column][row] = "O";
+      } else {
+        bombLocation.hit = true;
+        bombLocation.shipName.hit(bombLocation.position);
+      }
+      return true;
     }
+    return false;
   };
 
   return {
@@ -80,6 +103,7 @@ const gameboard = () => {
     ships,
     gameOver,
     checkAvailability,
+    autoPlaceShips,
   };
 };
 
