@@ -1,0 +1,21 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.grid-wrapper {
+  border: black solid 2px;
+  height: 400px;
+  min-width: 400px;
+  display: grid;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+}
+
+.game-section {
+  display: flex;
+  justify-content: space-around;
+}
