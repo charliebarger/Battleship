@@ -8,6 +8,7 @@ function App() {
   const computer = player("computer");
   const playerGamebaord = gameboard();
   const computerGameboard = gameboard();
+  console.log(playerGamebaord.board.length);
   return (
     <>
       <GolbalStyles />

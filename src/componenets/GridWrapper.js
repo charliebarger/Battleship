@@ -10,9 +10,10 @@ const StyledGridWrapper = styled.div`
     repeat(${(props) => props.gridRows}, 1fr) /
     repeat(${(props) => props.gridColumns}, 1fr);
 `;
-const GridWrapper = () => {
+const GridWrapper = ({ gridRows, gridColumns }) => {
+  console.log(gridRows, gridColumns);
   return (
-    <StyledGridWrapper gridColumns={10} gridRows={10}>
+    <StyledGridWrapper gridColumns={gridColumns} gridRows={gridRows}>
       <div></div>
     </StyledGridWrapper>
   );

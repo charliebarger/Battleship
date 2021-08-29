@@ -8,10 +8,11 @@ const StyledGameWrapper = styled.div`
 `;
 
 const GameSection = ({ gridRows, gridColumns }) => {
+  console.log(gridRows, gridColumns);
   return (
     <StyledGameWrapper>
-      <GridWrapper gridRows={gridRows} />
-      <GridWrapper gridColumns={gridColumns} />
+      <GridWrapper gridRows={gridRows} gridColumns={gridColumns} />
+      <GridWrapper gridRows={gridRows} gridColumns={gridColumns} />
     </StyledGameWrapper>
   );
 };
