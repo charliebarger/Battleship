@@ -1,4 +1,4 @@
-import generateRandomNumber from "../helpers/helpers";
+import { generateRandomNumber, isObject } from "../helpers/helpers";
 const gameboard = () => {
   let board = [...Array(10).keys()].map((x) =>
     [...Array(10).keys()].map((x) => undefined)
@@ -86,10 +86,6 @@ const gameboard = () => {
       gridLocation === undefined ||
       (isObject(gridLocation) && gridLocation.hit === false)
     );
-  };
-
-  const isObject = (obj) => {
-    return Object.prototype.toString.call(obj) === "[object Object]";
   };
 
   const recieveAttack = (column, row) => {

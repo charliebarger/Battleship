@@ -1,4 +1,4 @@
-import generateRandomNumber from "../helpers/helpers";
+import { generateRandomNumber } from "../helpers/helpers";
 import fleet from "../helpers/ships";
 const player = (player) => {
   const getPlayer = () => player;

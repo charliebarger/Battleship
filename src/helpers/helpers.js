@@ -2,4 +2,8 @@ const generateRandomNumber = (max, min) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-export default generateRandomNumber;
+const isObject = (obj) => {
+  return Object.prototype.toString.call(obj) === "[object Object]";
+};
+
+export { generateRandomNumber, isObject };
