@@ -1,11 +1,18 @@
 import React from "react";
 import GridWrapper from "./GridWrapper";
-const GameSection = () => {
+import styled from "styled-components";
+
+const StyledGameWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const GameSection = ({ gridRows, gridColumns }) => {
   return (
-    <div className="game-section">
-      <GridWrapper />
-      <GridWrapper />
-    </div>
+    <StyledGameWrapper>
+      <GridWrapper gridRows={gridRows} />
+      <GridWrapper gridColumns={gridColumns} />
+    </StyledGameWrapper>
   );
 };
 
