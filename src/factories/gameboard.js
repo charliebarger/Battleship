@@ -22,7 +22,7 @@ const gameboard = () => {
       return (
         board[columnStart]
           .slice(rowStart, rowStart + shipLength)
-          .every((item) => item === undefined) && rowStart + shipLength < 10
+          .every((item) => item === undefined) && rowStart + shipLength - 1 < 10
       );
     } else {
       return (
@@ -32,7 +32,7 @@ const gameboard = () => {
               index >= columnStart && index < columnStart + shipLength
           )
           .every((item) => item[rowStart] === undefined) &&
-        columnStart + shipLength < 10
+        columnStart + shipLength - 1 < 10
       );
     }
   };

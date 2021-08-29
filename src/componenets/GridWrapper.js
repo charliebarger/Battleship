@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { isObject } from "../helpers/helpers";
 const StyledGridWrapper = styled.div`
   border: black solid 2px;
   background: black;
@@ -14,15 +14,37 @@ const StyledGridWrapper = styled.div`
 `;
 
 const StyledGridItem = styled.div`
-  background-color: white;
+  background-color: ${(props) => {
+    console.log(props.status);
+    if (!props.status) {
+      return "white";
+    } else if (props.status === "miss") {
+      return "blue";
+    } else {
+      return "pink";
+    }
+  }};
   &:hover {
     background-color: red;
   }
 `;
+
 const GridWrapper = ({ gridRows, gridColumns, playerSquares }) => {
+  const showGridStatus = (item) => {
+    if (item === undefined || (isObject(item) && !item.hit)) {
+      return false;
+    } else if (item === "O") {
+      return "miss";
+    } else {
+      return "hit";
+    }
+  };
+
   return (
     <StyledGridWrapper gridColumns={gridColumns} gridRows={gridRows}>
-      {playerSquares.map((row) => row.map((item) => <StyledGridItem />))}
+      {playerSquares.map((row) =>
+        row.map((item) => <StyledGridItem status={showGridStatus(item)} />)
+      )}
     </StyledGridWrapper>
   );
 };

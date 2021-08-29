@@ -128,7 +128,7 @@ describe("test placing rotated ship", () => {
       )
     ).toBeTruthy());
   it("check that ships cant be put off grid", () =>
-    expect(game.placeShips(5, 0, battleship)).toBeFalsy());
+    expect(game.placeShips(6, 0, battleship)).toBeFalsy());
 });
 
 describe("computer palcement", () => {
