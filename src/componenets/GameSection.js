@@ -7,12 +7,11 @@ const StyledGameWrapper = styled.div`
   justify-content: space-around;
 `;
 
-const GameSection = ({ gridRows, gridColumns }) => {
-  console.log(gridRows, gridColumns);
+const GameSection = (props) => {
   return (
     <StyledGameWrapper>
-      <GridWrapper gridRows={gridRows} gridColumns={gridColumns} />
-      <GridWrapper gridRows={gridRows} gridColumns={gridColumns} />
+      <GridWrapper {...props} />
+      <GridWrapper {...props} />
     </StyledGameWrapper>
   );
 };

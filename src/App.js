@@ -8,11 +8,11 @@ function App() {
   const computer = player("computer");
   const playerGamebaord = gameboard();
   const computerGameboard = gameboard();
-  console.log(playerGamebaord.board.length);
   return (
     <>
       <GolbalStyles />
       <GameSection
+        playerSquares={playerGamebaord.board}
         gridRows={playerGamebaord.board.length}
         gridColumns={playerGamebaord.board[0].length}
       />
