@@ -7,11 +7,23 @@ const StyledGameWrapper = styled.div`
   justify-content: space-around;
 `;
 
-const GameSection = (props) => {
+const GameSection = ({
+  computerGameboard,
+  playerGameboard,
+  handleClick,
+  computerGamez,
+}) => {
+  console.log(computerGamez);
   return (
     <StyledGameWrapper>
-      <GridWrapper {...props} />
-      <GridWrapper {...props} />
+      <GridWrapper
+        gameboard={playerGameboard}
+        enemyGameboard={computerGameboard}
+      />
+      <GridWrapper
+        gameboard={computerGameboard}
+        enemyGameboard={playerGameboard}
+      />
     </StyledGameWrapper>
   );
 };

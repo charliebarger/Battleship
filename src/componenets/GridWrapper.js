@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { isObject } from "../helpers/helpers";
 const StyledGridWrapper = styled.div`
@@ -15,7 +15,6 @@ const StyledGridWrapper = styled.div`
 
 const StyledGridItem = styled.div`
   background-color: ${(props) => {
-    console.log(props.status);
     if (!props.status) {
       return "white";
     } else if (props.status === "miss") {
@@ -29,7 +28,14 @@ const StyledGridItem = styled.div`
   }
 `;
 
-const GridWrapper = ({ gridRows, gridColumns, playerSquares }) => {
+const GridWrapper = ({ gameboard, enemyGameboard }) => {
+  const [playerGameboard, setplayerGameboard] = useState(gameboard.board);
+
+  const hitSpace = (row, column) => {
+    gameboard.recieveAttack(row, column);
+    setplayerGameboard([...gameboard.board]);
+  };
+
   const showGridStatus = (item) => {
     if (item === undefined || (isObject(item) && !item.hit)) {
       return false;
@@ -41,9 +47,17 @@ const GridWrapper = ({ gridRows, gridColumns, playerSquares }) => {
   };
 
   return (
-    <StyledGridWrapper gridColumns={gridColumns} gridRows={gridRows}>
-      {playerSquares.map((row) =>
-        row.map((item) => <StyledGridItem status={showGridStatus(item)} />)
+    <StyledGridWrapper
+      gridColumns={gameboard.board[0].length}
+      gridRows={gameboard.board.length}
+    >
+      {playerGameboard.map((row, rowIndex) =>
+        row.map((item, columnIndex) => (
+          <StyledGridItem
+            onClick={() => hitSpace(rowIndex, columnIndex)}
+            status={showGridStatus(item)}
+          />
+        ))
       )}
     </StyledGridWrapper>
   );
