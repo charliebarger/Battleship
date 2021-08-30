@@ -13,23 +13,17 @@ const GameSection = ({
   player,
   computer,
 }) => {
-  console.log(playerGameboard, computerGameboard, computer);
   const [playerBoard, setPlayerBoard] = useState(playerGameboard.board);
   const [computerBoard, setComputerBoard] = useState(computerGameboard.board);
   return (
     <StyledGameWrapper>
-      {/* <GridWrapper
-        player={player}
-        gamboard={playerGame}
-        // gameboard={playerGameboard}
-        // enemyGameboard={computerGameboard}
-      /> */}
+      <GridWrapper gameboard={playerBoard} player={player} />
       <GridWrapper
         player={computer}
-        game={playerGameboard}
-        enemyGame={playerBoard}
+        game={computerGameboard}
+        enemyGame={playerGameboard}
         gameboard={computerBoard}
-        enemyGameboard={computerBoard}
+        enemyGameboard={playerBoard}
         setComputerGameboard={setComputerBoard}
         setPlayerGameboard={setPlayerBoard}
       />
