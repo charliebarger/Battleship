@@ -15,6 +15,8 @@ function App() {
       <GameSection
         playerGameboard={playerGame}
         computerGameboard={computerGame}
+        player={player1}
+        computer={computer}
       />
     </>
   );

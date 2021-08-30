@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import GridWrapper from "./GridWrapper";
 import styled from "styled-components";
 
@@ -8,21 +8,30 @@ const StyledGameWrapper = styled.div`
 `;
 
 const GameSection = ({
-  computerGameboard,
   playerGameboard,
-  handleClick,
-  computerGamez,
+  computerGameboard,
+  player,
+  computer,
 }) => {
-  console.log(computerGamez);
+  console.log(playerGameboard, computerGameboard, computer);
+  const [playerBoard, setPlayerBoard] = useState(playerGameboard.board);
+  const [computerBoard, setComputerBoard] = useState(computerGameboard.board);
   return (
     <StyledGameWrapper>
+      {/* <GridWrapper
+        player={player}
+        gamboard={playerGame}
+        // gameboard={playerGameboard}
+        // enemyGameboard={computerGameboard}
+      /> */}
       <GridWrapper
-        gameboard={playerGameboard}
-        enemyGameboard={computerGameboard}
-      />
-      <GridWrapper
-        gameboard={computerGameboard}
-        enemyGameboard={playerGameboard}
+        player={computer}
+        game={playerGameboard}
+        enemyGame={playerBoard}
+        gameboard={computerBoard}
+        enemyGameboard={computerBoard}
+        setComputerGameboard={setComputerBoard}
+        setPlayerGameboard={setPlayerBoard}
       />
     </StyledGameWrapper>
   );

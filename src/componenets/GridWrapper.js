@@ -28,12 +28,24 @@ const StyledGridItem = styled.div`
   }
 `;
 
-const GridWrapper = ({ gameboard, enemyGameboard }) => {
-  const [playerGameboard, setplayerGameboard] = useState(gameboard.board);
-
+const GridWrapper = ({
+  player,
+  game,
+  setComputerGameboard,
+  enemyGame,
+  gameboard,
+  enemyGameboard,
+  setPlayerGameboard,
+}) => {
   const hitSpace = (row, column) => {
-    gameboard.recieveAttack(row, column);
-    setplayerGameboard([...gameboard.board]);
+    if (player.getPlayer() === "computer") {
+      player.autoAttack(gameboard);
+    }
+    player.attack(row, column, enemyGameboard);
+    if (gameboard.gameOver()) {
+      alert("Game Over");
+    }
+    setComputerGameboard([...enemyGameboard.board]);
   };
 
   const showGridStatus = (item) => {
@@ -48,13 +60,17 @@ const GridWrapper = ({ gameboard, enemyGameboard }) => {
 
   return (
     <StyledGridWrapper
-      gridColumns={gameboard.board[0].length}
-      gridRows={gameboard.board.length}
+      gridColumns={gameboard[0].length}
+      gridRows={gameboard.length}
     >
-      {playerGameboard.map((row, rowIndex) =>
+      {gameboard.map((row, rowIndex) =>
         row.map((item, columnIndex) => (
           <StyledGridItem
-            onClick={() => hitSpace(rowIndex, columnIndex)}
+            // onClick={() =>
+            //   player.getPlayer() === "computer"
+            //     ? hitSpace(rowIndex, columnIndex)
+            //     : console.log("hi")
+            // }
             status={showGridStatus(item)}
           />
         ))
