@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { isObject } from "../helpers/helpers";
+
 const StyledGridWrapper = styled.div`
   border: black solid 2px;
   background: black;
@@ -14,50 +15,41 @@ const StyledGridWrapper = styled.div`
 `;
 
 const StyledGridItem = styled.div`
-  background-color: ${(props) => {
-    if (!props.status) {
-      return "white";
-    } else if (props.status === "miss") {
-      return "blue";
-    } else {
-      return "pink";
-    }
-  }};
+  background-color: white;
   &:hover {
     background-color: red;
   }
 `;
 
-const GridWrapper = ({ gameboard, enemyGameboard }) => {
-  const [playerGameboard, setplayerGameboard] = useState(gameboard.board);
-
-  const hitSpace = (row, column) => {
-    gameboard.recieveAttack(row, column);
-    setplayerGameboard([...gameboard.board]);
-  };
-
-  const showGridStatus = (item) => {
-    if (item === undefined || (isObject(item) && !item.hit)) {
-      return false;
+const GridWrapper = ({ gameboard, enemyGameboard, player }) => {
+  function getColoritem(item) {
+    let color;
+    if (isObject(item)) {
+      if (item.hit) {
+        color = "violet";
+      } else if (player === "player") {
+        color = "blue";
+      } else {
+        color = "white";
+      }
     } else if (item === "O") {
-      return "miss";
+      return "red";
     } else {
-      return "hit";
+      return "white";
     }
-  };
-
+    return color;
+  }
   return (
     <StyledGridWrapper
       gridColumns={gameboard.board[0].length}
       gridRows={gameboard.board.length}
     >
-      {playerGameboard.map((row, rowIndex) =>
-        row.map((item, columnIndex) => (
-          <StyledGridItem
-            onClick={() => hitSpace(rowIndex, columnIndex)}
-            status={showGridStatus(item)}
-          />
-        ))
+      {gameboard.board.map((row, rowIndex) =>
+        row.map((item, columnIndex) => {
+          return (
+            <StyledGridItem style={{ backgroundColor: getColoritem(item) }} />
+          );
+        })
       )}
     </StyledGridWrapper>
   );

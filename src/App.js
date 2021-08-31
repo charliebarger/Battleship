@@ -13,6 +13,8 @@ function App() {
     <>
       <GolbalStyles />
       <GameSection
+        computer={computer}
+        player={player1}
         playerGameboard={playerGame}
         computerGameboard={computerGame}
       />
