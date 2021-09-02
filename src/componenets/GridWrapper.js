@@ -23,29 +23,27 @@ const StyledGridItem = styled.div`
 const GridWrapper = ({
   gameboard,
   player,
-  game,
-  enemyGame,
-  enemyGameboard,
-  setComputerGameboard,
-  setPlayerGameboard,
-  setGameOver,
-  gameOver,
+  handleClick,
+  // game,
+  // enemyGame,
+  // enemyGameboard,
+  // setComputerGameboard,
+  // setPlayerGameboard,
+  // setGameOver,
 }) => {
-  const hitSpace = (row, column) => {
-    player.autoAttack(enemyGame);
-    game.recieveAttack(row, column);
-    if (game.gameOver()) {
-      alert("I WON");
-      setGameOver(true);
-      return;
-    } else if (enemyGame.gameOver()) {
-      alert("I Lost");
-      setGameOver(true);
-      return;
-    }
-    setComputerGameboard([...gameboard]);
-    setPlayerGameboard([...enemyGameboard]);
-  };
+  // const hitSpace = (row, column) => {
+  //   player.autoAttack(enemyGame);
+  //   game.recieveAttack(row, column);
+  //   if (game.gameOver()) {
+  //     setGameOver(true);
+  //     return;
+  //   } else if (enemyGame.gameOver()) {
+  //     setGameOver(true);
+  //     return;
+  //   }
+  //   setComputerGameboard([...gameboard]);
+  //   setPlayerGameboard([...enemyGameboard]);
+  // };
 
   function getColoritem(item) {
     let color;
@@ -73,11 +71,12 @@ const GridWrapper = ({
       {gameboard.map((row, rowIndex) =>
         row.map((item, columnIndex) => (
           <StyledGridItem
-            onClick={() =>
-              player.getPlayer() === "computer" &&
-              (!item || (isObject(item) && !item.hit))
-                ? hitSpace(rowIndex, columnIndex)
-                : undefined
+            onClick={
+              () => handleClick(item, rowIndex, columnIndex)
+              // player.getPlayer() === "computer" &&
+              // (!item || (isObject(item) && !item.hit))
+              //   ? hitSpace(rowIndex, columnIndex)
+              //   : undefined
             }
             color={getColoritem(item)}
           />

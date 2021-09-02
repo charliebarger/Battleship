@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GridWrapper from "./GridWrapper";
 import styled from "styled-components";
-
+import isObject from "isobject";
 const StyledGameWrapper = styled.div`
   display: flex;
   justify-content: space-around;
@@ -18,6 +18,26 @@ const GameSection = ({
   const [playerBoard, setPlayerBoard] = useState(playerGameboard.board);
   const [computerBoard, setComputerBoard] = useState(computerGameboard.board);
 
+  const hitSpace = (row, column) => {
+    computer.autoAttack(playerGameboard);
+    computerGameboard.recieveAttack(row, column);
+    if (computerGameboard.gameOver()) {
+      setGameOver(true);
+      return;
+    } else if (playerGameboard.gameOver()) {
+      setGameOver(true);
+      return;
+    }
+    setComputerBoard([...computerGameboard.board]);
+    setPlayerBoard([...playerGameboard.board]);
+  };
+
+  const handleClickAttack = (item, row, column) => {
+    return !item || (isObject(item) && !item.hit)
+      ? hitSpace(row, column)
+      : false;
+  };
+
   useEffect(() => {
     setComputerBoard(computerGameboard.board);
     setPlayerBoard(playerGameboard.board);
@@ -30,15 +50,9 @@ const GameSection = ({
         game={playerGameboard}
       />
       <GridWrapper
-        gameOver={gameOver}
         player={computer}
-        game={computerGameboard}
-        enemyGame={playerGameboard}
         gameboard={computerBoard}
-        enemyGameboard={playerBoard}
-        setComputerGameboard={setComputerBoard}
-        setPlayerGameboard={setPlayerBoard}
-        setGameOver={setGameOver}
+        handleClick={handleClickAttack}
       />
     </StyledGameWrapper>
   );

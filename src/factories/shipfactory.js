@@ -1,6 +1,5 @@
 const shipFactory = (length, id, color) => {
   const shipPositions = [...Array(length).keys()].map((x) => undefined);
-  console.log(shipPositions);
   let rotate = false;
 
   const getShipPositions = () => shipPositions;
