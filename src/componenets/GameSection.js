@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GridWrapper from "./GridWrapper";
 import styled from "styled-components";
 
@@ -7,23 +7,38 @@ const StyledGameWrapper = styled.div`
   justify-content: space-around;
 `;
 
-const GameSection = ({ computerGameboard, playerGameboard, player }) => {
+const GameSection = ({
+  playerGameboard,
+  computerGameboard,
+  player,
+  computer,
+  setGameOver,
+  gameOver,
+}) => {
   const [playerBoard, setPlayerBoard] = useState(playerGameboard.board);
   const [computerBoard, setComputerBoard] = useState(computerGameboard.board);
+
+  useEffect(() => {
+    setComputerBoard(computerGameboard.board);
+    setPlayerBoard(playerGameboard.board);
+  }, [setComputerBoard, computerGameboard, setPlayerBoard, playerGameboard]);
   return (
     <StyledGameWrapper>
       <GridWrapper
-        player={player.getPlayer()}
-        gameboard={playerGameboard}
-        enemyGameboard={computerGameboard}
+        gameboard={playerBoard}
+        player={player}
+        game={playerGameboard}
       />
       <GridWrapper
-        playerBoard={playerBoard}
-        computerBoard={computerBoard}
+        gameOver={gameOver}
+        player={computer}
+        game={computerGameboard}
+        enemyGame={playerGameboard}
+        gameboard={computerBoard}
+        enemyGameboard={playerBoard}
         setComputerGameboard={setComputerBoard}
         setPlayerGameboard={setPlayerBoard}
-        gameboard={computerGameboard}
-        enemyGameboard={playerGameboard}
+        setGameOver={setGameOver}
       />
     </StyledGameWrapper>
   );

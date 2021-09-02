@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { isObject } from "../helpers/helpers";
-
 const StyledGridWrapper = styled.div`
   border: black solid 2px;
   background: black;
@@ -15,20 +14,46 @@ const StyledGridWrapper = styled.div`
 `;
 
 const StyledGridItem = styled.div`
-  background-color: white;
+  background-color: ${(props) => props.color};
   &:hover {
     background-color: red;
   }
 `;
 
-const GridWrapper = ({ gameboard, enemyGameboard, player }) => {
+const GridWrapper = ({
+  gameboard,
+  player,
+  game,
+  enemyGame,
+  enemyGameboard,
+  setComputerGameboard,
+  setPlayerGameboard,
+  setGameOver,
+  gameOver,
+}) => {
+  const hitSpace = (row, column) => {
+    player.autoAttack(enemyGame);
+    game.recieveAttack(row, column);
+    if (game.gameOver()) {
+      alert("I WON");
+      setGameOver(true);
+      return;
+    } else if (enemyGame.gameOver()) {
+      alert("I Lost");
+      setGameOver(true);
+      return;
+    }
+    setComputerGameboard([...gameboard]);
+    setPlayerGameboard([...enemyGameboard]);
+  };
+
   function getColoritem(item) {
     let color;
     if (isObject(item)) {
       if (item.hit) {
         color = "violet";
-      } else if (player === "player") {
-        color = "blue";
+      } else if (player.getPlayer() === "player") {
+        color = item.shipName.color;
       } else {
         color = "white";
       }
@@ -39,17 +64,24 @@ const GridWrapper = ({ gameboard, enemyGameboard, player }) => {
     }
     return color;
   }
+
   return (
     <StyledGridWrapper
-      gridColumns={gameboard.board[0].length}
-      gridRows={gameboard.board.length}
+      gridColumns={gameboard[0].length}
+      gridRows={gameboard.length}
     >
-      {gameboard.board.map((row, rowIndex) =>
-        row.map((item, columnIndex) => {
-          return (
-            <StyledGridItem style={{ backgroundColor: getColoritem(item) }} />
-          );
-        })
+      {gameboard.map((row, rowIndex) =>
+        row.map((item, columnIndex) => (
+          <StyledGridItem
+            onClick={() =>
+              player.getPlayer() === "computer" &&
+              (!item || (isObject(item) && !item.hit))
+                ? hitSpace(rowIndex, columnIndex)
+                : undefined
+            }
+            color={getColoritem(item)}
+          />
+        ))
       )}
     </StyledGridWrapper>
   );

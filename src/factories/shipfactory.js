@@ -1,7 +1,9 @@
-const shipFactory = (length, id) => {
+const shipFactory = (length, id, color) => {
   const shipPositions = [...Array(length).keys()].map((x) => undefined);
-
+  console.log(shipPositions);
   let rotate = false;
+
+  const getShipPositions = () => shipPositions;
 
   const toggleRotate = (rotationStatus) => {
     rotate = !rotate;
@@ -15,6 +17,7 @@ const shipFactory = (length, id) => {
   const isSunk = () => shipPositions.every((item) => item === "X");
 
   return {
+    color,
     length,
     hit,
     isSunk,
@@ -24,6 +27,7 @@ const shipFactory = (length, id) => {
       return rotate;
     },
     toggleRotate,
+    getShipPositions,
   };
 };
 

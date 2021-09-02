@@ -6,6 +6,7 @@ const gameboard = () => {
 
   let ships = [];
 
+  let getShips = () => ships;
   const gameOver = () => ships.every((ship) => ship.isSunk() === true);
 
   const addShips = (ship) => {
@@ -111,6 +112,7 @@ const gameboard = () => {
     checkAvailability,
     autoPlaceShips,
     autoPlaceAllShips,
+    getShips,
   };
 };
 

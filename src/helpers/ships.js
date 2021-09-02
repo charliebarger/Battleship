@@ -1,11 +1,13 @@
 import shipFactory from "../factories/shipfactory";
-const ships = [
-  { name: "Carrier", length: 5 },
-  { name: "Battleship", length: 4 },
-  { name: "Cruiser", length: 3 },
-  { name: "Submarine", length: 3 },
-  { name: "Destroyer", length: 2 },
-];
+function getFleet() {
+  let newFleet = [
+    { name: "Carrier", length: 5, color: "green" },
+    { name: "Battleship", length: 4, color: "blue" },
+    { name: "Cruiser", length: 3, color: "violet" },
+    { name: "Submarine", length: 3, color: "orange" },
+    { name: "Destroyer", length: 2, color: "yellow" },
+  ].map((ship) => shipFactory(ship.length, ship.name, ship.color));
+  return newFleet;
+}
 
-const fleet = ships.map((ship) => shipFactory(ship.length, ship.name));
-export default fleet;
+export default getFleet;

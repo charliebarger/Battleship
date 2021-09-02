@@ -9,8 +9,8 @@ const player = (player) => {
     let flag;
     while (!flag) {
       flag = attack(
-        generateRandomNumber(0, 9),
-        generateRandomNumber(0, 9),
+        generateRandomNumber(0, 10),
+        generateRandomNumber(0, 10),
         enemyGameboard
       );
     }
