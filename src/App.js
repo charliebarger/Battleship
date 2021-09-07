@@ -25,7 +25,6 @@ function App() {
       <GolbalStyles />
       {!gameOver ? (
         <GameSection
-          gameOver={gameOver}
           computer={computer}
           player={player1}
           playerGameboard={playerGame}

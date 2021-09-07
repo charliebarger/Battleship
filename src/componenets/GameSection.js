@@ -15,7 +15,6 @@ const GameSection = ({
   player,
   computer,
   setGameOver,
-  gameOver,
 }) => {
   const [playerBoard, setPlayerBoard] = useState(playerGameboard.board);
   const [computerBoard, setComputerBoard] = useState(computerGameboard.board);
@@ -23,18 +22,45 @@ const GameSection = ({
   fleet[0].selected = true;
   const [myShip, setMyShip] = useState(fleet);
 
+  const checkForGameOver = () => {
+    if (computerGameboard.gameOver()) {
+      setGameOver(computer.getPlayer());
+      return true;
+    } else if (playerGameboard.gameOver()) {
+      setGameOver(player.getPlayer);
+      return true;
+    }
+    return false;
+  };
+
+  const updateGameboard = (gameboard1, gameboard2) => {
+    setComputerBoard([...gameboard1]);
+    setPlayerBoard([...gameboard2]);
+  };
+
   const hitSpace = (row, column) => {
     computer.autoAttack(playerGameboard);
     computerGameboard.recieveAttack(row, column);
-    if (computerGameboard.gameOver()) {
-      setGameOver(computer.getPlayer());
-      return;
-    } else if (playerGameboard.gameOver()) {
-      setGameOver(player.getPlayer);
+    updateGameboard(computerGameboard.board, playerGameboard.board);
+    if (checkForGameOver()) {
       return;
     }
-    setComputerBoard([...computerGameboard.board]);
-    setPlayerBoard([...playerGameboard.board]);
+  };
+
+  const changeSelectedShip = (ships) => {
+    for (let i = 0; i < ships.length; i++) {
+      if (ships[i].selected) {
+        ships[i].selected = false;
+        if (ships.length - 1 !== i) {
+          let position = i + 1;
+          ships[position].selected = true;
+          break;
+        } else {
+          break;
+        }
+      }
+    }
+    setMyShip([...ships]);
   };
 
   const handlePlaceShips = (row, column, ship, temporary) => {
@@ -42,23 +68,9 @@ const GameSection = ({
       removeShip(ship);
       if (playerGameboard.placeShips(row, column, ship)) {
         let changeSelected = myShip;
-        for (let i = 0; i < changeSelected.length; i++) {
-          if (changeSelected[i].selected) {
-            changeSelected[i].selected = false;
-            if (changeSelected.length - 1 === i) {
-              break;
-            } else {
-              let position = i + 1;
-              changeSelected[position].selected = true;
-              break;
-            }
-          }
-        }
-        setMyShip([...changeSelected]);
+        changeSelectedShip(changeSelected);
       }
-    }
-    console.log(row, column, ship);
-    if (playerGameboard.placeShips(row, column, ship)) {
+    } else if (playerGameboard.placeShips(row, column, ship)) {
       setPlayerBoard([...playerGameboard.board]);
     }
   };
@@ -71,7 +83,6 @@ const GameSection = ({
         }
       })
     );
-    playerGameboard.ships = [];
     setPlayerBoard([...playerGameboard.board]);
   };
 
@@ -82,9 +93,9 @@ const GameSection = ({
   };
 
   useEffect(() => {
-    setComputerBoard(computerGameboard.board);
-    setPlayerBoard(playerGameboard.board);
+    updateGameboard(computerGameboard.board, playerGameboard.board);
   }, [setComputerBoard, computerGameboard, setPlayerBoard, playerGameboard]);
+
   return (
     <StyledGameWrapper>
       {myShip.some((ship) => ship.selected) ? (
