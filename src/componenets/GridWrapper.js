@@ -23,7 +23,7 @@ const StyledGridItem = styled.div`
 `;
 
 const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
-  function getColoritem(item) {
+  function getColor(item) {
     let color;
     if (isObject(item)) {
       if (item.hit) {
@@ -50,11 +50,13 @@ const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
         row.map((item, columnIndex) => (
           <StyledGridItem
             onClick={() => {
+              //if no ship is specified play game else place ships
               !ship
                 ? handleClick(item, rowIndex, columnIndex)
                 : handleClick(rowIndex, columnIndex, ship);
             }}
             onMouseEnter={
+              //if remove hover is specified apply apply and remove ships on mouseEnter and mouseLeave
               removeHover
                 ? () => handleClick(rowIndex, columnIndex, ship, true)
                 : undefined
@@ -62,7 +64,7 @@ const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
             onMouseLeave={
               removeHover ? () => removeHover(ship, gameboard) : undefined
             }
-            color={getColoritem(item)}
+            color={getColor(item)}
           />
         ))
       )}
