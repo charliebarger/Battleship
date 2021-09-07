@@ -16,35 +16,13 @@ const StyledGridWrapper = styled.div`
 const StyledGridItem = styled.div`
   background-color: ${(props) => props.color};
   &:hover {
+    transform: scale(1.05);
     background-color: red;
+    border: black solid 1px;
   }
 `;
 
-const GridWrapper = ({
-  gameboard,
-  player,
-  handleClick,
-  // game,
-  // enemyGame,
-  // enemyGameboard,
-  // setComputerGameboard,
-  // setPlayerGameboard,
-  // setGameOver,
-}) => {
-  // const hitSpace = (row, column) => {
-  //   player.autoAttack(enemyGame);
-  //   game.recieveAttack(row, column);
-  //   if (game.gameOver()) {
-  //     setGameOver(true);
-  //     return;
-  //   } else if (enemyGame.gameOver()) {
-  //     setGameOver(true);
-  //     return;
-  //   }
-  //   setComputerGameboard([...gameboard]);
-  //   setPlayerGameboard([...enemyGameboard]);
-  // };
-
+const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
   function getColoritem(item) {
     let color;
     if (isObject(item)) {
@@ -71,12 +49,18 @@ const GridWrapper = ({
       {gameboard.map((row, rowIndex) =>
         row.map((item, columnIndex) => (
           <StyledGridItem
-            onClick={
-              () => handleClick(item, rowIndex, columnIndex)
-              // player.getPlayer() === "computer" &&
-              // (!item || (isObject(item) && !item.hit))
-              //   ? hitSpace(rowIndex, columnIndex)
-              //   : undefined
+            onClick={() => {
+              !ship
+                ? handleClick(item, rowIndex, columnIndex)
+                : handleClick(rowIndex, columnIndex, ship);
+            }}
+            onMouseEnter={
+              removeHover
+                ? () => handleClick(rowIndex, columnIndex, ship, true)
+                : undefined
+            }
+            onMouseLeave={
+              removeHover ? () => removeHover(ship, gameboard) : undefined
             }
             color={getColoritem(item)}
           />

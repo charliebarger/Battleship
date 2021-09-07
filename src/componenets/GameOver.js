@@ -1,9 +1,9 @@
 import React from "react";
 
-const GameOver = ({ handleClick }) => {
+const GameOver = ({ handleClick, player }) => {
   return (
     <div>
-      <button onClick={() => handleClick(false)}>Game Over</button>
+      <button onClick={() => handleClick(false)}>{player}</button>
     </div>
   );
 };

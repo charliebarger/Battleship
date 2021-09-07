@@ -36,7 +36,7 @@ describe("test rotation", () => {
   });
 });
 
-it.only("test shipPositions", () => {
+it("test shipPositions", () => {
   const shipObject = shipFactory(2, "dingy");
   shipObject.hit(0);
   expect(shipObject.shipPositions).toEqual(["X", undefined]);

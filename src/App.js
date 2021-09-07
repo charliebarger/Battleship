@@ -8,12 +8,13 @@ import GameOver from "./componenets/GameOver";
 function App() {
   const [gameOver, setGameOver] = useState(false);
 
+  const shipPosition = () => {};
+
   const makeNewGame = () => {
     const playerGame = gameboard();
     const computerGame = gameboard();
     const player1 = player("player");
     const computer = player("computer");
-    playerGame.autoPlaceAllShips(getFleet());
     computerGame.autoPlaceAllShips(getFleet());
     return { playerGame, computerGame, player1, computer };
   };
@@ -32,7 +33,7 @@ function App() {
           setGameOver={setGameOver}
         />
       ) : (
-        <GameOver handleClick={setGameOver} />
+        <GameOver handleClick={setGameOver} player={gameOver} />
       )}
     </>
   );
