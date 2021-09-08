@@ -8,8 +8,14 @@ const shipFactory = (length, id, color, border) => {
     rotate = !rotate;
   };
 
+  function play() {
+    var audio = new Audio("https://inception.davepedu.com/inception.mp3");
+    audio.play();
+  }
+
   const hit = (position) => {
     shipPositions[position] = "X";
+    play();
     return shipPositions;
   };
 
