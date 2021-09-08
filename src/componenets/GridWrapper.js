@@ -26,7 +26,7 @@ const StyledGridWrapper = styled.div`
 const StyledGridItem = styled.div`
   background-image:url(${explode});
   object-fit:contain;
-  transition:1s;
+  transition:${({ placingShips }) => (placingShips ? "0s" : "1s")};
   position:relative;
   z-index: 1;
   display: flex;
@@ -87,9 +87,7 @@ const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
     let color;
     let border;
     if (isObject(item)) {
-      if (item.hitss) {
-        color = item.shipNAme;
-      } else if (player.getPlayer() === "player" || item.hit) {
+      if (player.getPlayer() === "player" || item.hit) {
         console.log(item.shipName.border);
         color = item.shipName.color;
         border = item.shipName.border;
@@ -133,6 +131,7 @@ const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
               item={item}
               color={getColor(item).color}
               border={getColor(item).border}
+              placingShips={removeHover}
             />
           ) : (
             <StyledGridItem
