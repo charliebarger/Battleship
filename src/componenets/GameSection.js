@@ -111,7 +111,7 @@ const GameSection = ({
           <GridWrapper
             player={player}
             gameboard={playerBoard}
-            handleClick={() => console.log("hi")}
+            handleClick={() => {}}
           />
           <GridWrapper
             player={computer}

@@ -1,15 +1,7 @@
 import React from "react";
 import GridWrapper from "./GridWrapper";
-import getFleet from "../helpers/ships";
 
-const SetShips = ({
-  gameboard,
-  player,
-  handleClick,
-  ship,
-  removeHover,
-  setRotate,
-}) => {
+const SetShips = ({ gameboard, player, handleClick, ship, removeHover }) => {
   return (
     <div>
       <GridWrapper

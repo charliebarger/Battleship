@@ -11,6 +11,10 @@ html {
 *:after {
     box-sizing: inherit;
 }
+body{
+    min-height: 100vh;
+    background-color:#b3b1b1;
+}
 `;
 
 export default GolbalStyles;
