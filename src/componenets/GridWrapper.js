@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { isObject } from "../helpers/helpers";
 import explode from "../images/explosion.png";
 const StyledGridWrapper = styled.div`
@@ -23,6 +23,11 @@ const StyledGridWrapper = styled.div`
 
 const StyledGridItem = styled.div`
   background-color: ${(props) => props.color};
+  ${({ border }) =>
+    border &&
+    css`
+      border: 2px solid ${border};
+    `}
   &:hover {
     transform: scale(1.05);
     background-color: red;
@@ -33,20 +38,23 @@ const StyledGridItem = styled.div`
 const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
   function getColor(item) {
     let color;
+    let border;
     if (isObject(item)) {
       if (item.hit) {
         color = "hit";
       } else if (player.getPlayer() === "player") {
+        console.log(item.shipName.border);
         color = item.shipName.color;
+        border = item.shipName.border;
       } else {
         color = "white";
       }
     } else if (item === "O") {
-      return "#266691";
+      color = "#266691";
     } else {
-      return "white";
+      color = "white";
     }
-    return color;
+    return { color, border };
   }
 
   return (
@@ -74,7 +82,8 @@ const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
               onMouseLeave={
                 removeHover ? () => removeHover(ship, gameboard) : undefined
               }
-              color={getColor(item)}
+              color={getColor(item).color}
+              border={getColor(item).border}
             />
           ) : (
             <div

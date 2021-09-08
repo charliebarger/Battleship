@@ -13,7 +13,7 @@ html {
 }
 body{
     min-height: 100vh;
-    background-color:#b3b1b1;
+    background-color:#848482;
 }
 `;
 

@@ -1,4 +1,4 @@
-const shipFactory = (length, id, color) => {
+const shipFactory = (length, id, color, border) => {
   const shipPositions = [...Array(length).keys()].map((x) => undefined);
   let rotate = false;
 
@@ -18,6 +18,7 @@ const shipFactory = (length, id, color) => {
   return {
     color,
     length,
+    border,
     hit,
     isSunk,
     id,
