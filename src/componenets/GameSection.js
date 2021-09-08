@@ -24,7 +24,9 @@ const GameSection = ({
 
   const checkForGameOver = () => {
     if (computerGameboard.gameOver()) {
-      setGameOver(computer.getPlayer());
+      setTimeout(() => {
+        setGameOver(computer.getPlayer());
+      }, 1000);
       return true;
     } else if (playerGameboard.gameOver()) {
       setGameOver(player.getPlayer);
@@ -39,12 +41,14 @@ const GameSection = ({
   };
 
   const hitSpace = (row, column) => {
-    computer.autoAttack(playerGameboard);
-    computerGameboard.recieveAttack(row, column);
-    updateGameboard(computerGameboard.board, playerGameboard.board);
     if (checkForGameOver()) {
+      updateGameboard(computerGameboard.board, playerGameboard.board);
       return;
+    } else {
+      computerGameboard.recieveAttack(row, column);
+      computer.autoAttack(playerGameboard);
     }
+    updateGameboard(computerGameboard.board, playerGameboard.board);
   };
 
   const changeSelectedShip = (ships) => {
