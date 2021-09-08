@@ -24,62 +24,60 @@ const StyledGridWrapper = styled.div`
 `;
 
 const StyledGridItem = styled.div`
-  background-image:url(${explode});
-  object-fit:contain;
-  transition:${({ placingShips }) => (placingShips ? "0s" : "1s")};
-  position:relative;
+  background-image: url(${explode});
+  object-fit: contain;
+  transition: ${({ placingShips }) => (placingShips ? "0s" : "1s")};
+  position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   background-color: ${({ color, sunkShip }) => (sunkShip ? "red" : color)};
   ${({ border }) =>
     border &&
     css`
       border: 2px solid ${border};
     `}
-    ${({ player, color }) =>
-      player === "computer" &&
-      color === "white" &&
-      css`
-        &:hover {
-          cursor: pointer;
-          &::before {
-            content: "";
-            display: block;
-            position: absolute;
-            height: 70%;
-            width: 70%;
-            left: 15%;
-            top: 15%;
-            border-radius: 100px;
-            z-index: 1;
-            background: red;
-            border-radius: 50%;
-            box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
-            animation: pulse 1.5s infinite;
-          }
+  ${({ player, color }) =>
+    player === "computer" &&
+    color === "white" &&
+    css`
+      &:hover {
+        cursor: pointer;
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          height: 70%;
+          width: 70%;
+          left: 15%;
+          top: 15%;
+          border-radius: 100px;
+          z-index: 1;
+          background: red;
+          border-radius: 50%;
+          box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+          animation: pulse 1.5s infinite;
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(0.5);
+          box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
         }
 
-        @keyframes pulse {
-          0% {
-            transform: scale(0.5);
-            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-          }
-
-          70% {
-            transform: scale(1);
-            box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-          }
-
-          100% {
-            transform: scale(0.7);
-            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-          }
+        70% {
+          transform: scale(1);
+          box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
         }
-      `}
-  
-  }
+
+        100% {
+          transform: scale(0.7);
+          box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        }
+      }
+    `}
 `;
 
 const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
