@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 import { isObject } from "../helpers/helpers";
 import explode from "../images/explosion.png";
 const StyledGridWrapper = styled.div`
+  /* position: relative;
+  z-index: -1; */
   border: 10px solid;
   border-image-slice: 1;
   border-width: 5px;
@@ -22,16 +24,61 @@ const StyledGridWrapper = styled.div`
 `;
 
 const StyledGridItem = styled.div`
-  background-color: ${(props) => props.color};
+  background-image:url(${explode});
+  object-fit:contain;
+  transition:1s;
+  position:relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  background-color: ${({ color, sunkShip }) => (sunkShip ? "red" : color)};
   ${({ border }) =>
     border &&
     css`
       border: 2px solid ${border};
     `}
-  &:hover {
-    transform: scale(1.05);
-    background-color: red;
-    border: black solid 1px;
+    ${({ player, color }) =>
+      player === "computer" &&
+      color === "white" &&
+      css`
+        &:hover {
+          cursor: pointer;
+          &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            height: 70%;
+            width: 70%;
+            left: 15%;
+            top: 15%;
+            border-radius: 100px;
+            z-index: 1;
+            background: red;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+            animation: pulse 1.5s infinite;
+          }
+        }
+
+        @keyframes pulse {
+          0% {
+            transform: scale(0.5);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+          }
+
+          70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+          }
+
+          100% {
+            transform: scale(0.7);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+          }
+        }
+      `}
+  
   }
 `;
 
@@ -40,9 +87,9 @@ const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
     let color;
     let border;
     if (isObject(item)) {
-      if (item.hit) {
-        color = "hit";
-      } else if (player.getPlayer() === "player") {
+      if (item.hitss) {
+        color = item.shipNAme;
+      } else if (player.getPlayer() === "player" || item.hit) {
         console.log(item.shipName.border);
         color = item.shipName.color;
         border = item.shipName.border;
@@ -82,24 +129,24 @@ const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
               onMouseLeave={
                 removeHover ? () => removeHover(ship, gameboard) : undefined
               }
+              player={player.getPlayer()}
+              item={item}
               color={getColor(item).color}
               border={getColor(item).border}
             />
           ) : (
-            <div
-              style={{
-                background: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+            <StyledGridItem
+              player={player.getPlayer()}
+              sunkShip={item.shipName.isSunk()}
+              color={getColor(item).color}
+              border={getColor(item).border}
             >
               <img
                 style={{ maxHeight: "90%", width: "90%" }}
                 src={explode}
                 alt="hit"
               />
-            </div>
+            </StyledGridItem>
           )
         )
       )}
