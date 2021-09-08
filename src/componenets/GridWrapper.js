@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { isObject } from "../helpers/helpers";
 import explode from "../images/explosion.png";
 const StyledGridWrapper = styled.div`
@@ -21,6 +21,21 @@ const StyledGridWrapper = styled.div`
   grid-template:
     repeat(${(props) => props.gridRows}, 1fr) /
     repeat(${(props) => props.gridColumns}, 1fr);
+`;
+
+const pulse = keyframes`
+  0% {
+    transform: scale(0.5);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  
+  100% {
+    transform: scale(0.7);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 `;
 
 const StyledGridItem = styled.div`
@@ -57,24 +72,7 @@ const StyledGridItem = styled.div`
           background: red;
           border-radius: 50%;
           box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
-          animation: pulse 1.5s infinite;
-        }
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(0.5);
-          box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-        }
-
-        70% {
-          transform: scale(1);
-          box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-        }
-
-        100% {
-          transform: scale(0.7);
-          box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+          animation: ${pulse} 1.5s infinite;
         }
       }
     `}
