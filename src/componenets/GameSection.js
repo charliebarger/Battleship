@@ -22,15 +22,18 @@ const GameSection = ({
   fleet[0].selected = true;
   const [myShip, setMyShip] = useState(fleet);
 
+  const gameOver = (player) => {
+    setTimeout(() => {
+      setGameOver(player.getPlayer());
+    }, 1000);
+    return true;
+  };
+
   const checkForGameOver = () => {
     if (computerGameboard.gameOver()) {
-      setTimeout(() => {
-        setGameOver(computer.getPlayer());
-      }, 1000);
-      return true;
+      return gameOver(computer);
     } else if (playerGameboard.gameOver()) {
-      setGameOver(player.getPlayer);
-      return true;
+      return gameOver(player);
     }
     return false;
   };
@@ -40,15 +43,25 @@ const GameSection = ({
     setPlayerBoard([...gameboard2]);
   };
 
+  const computerAttack = () => {
+    computer.autoAttack(playerGameboard);
+    updateGameboard(computerGameboard.board, playerGameboard.board);
+    checkForGameOver();
+  };
+
+  const playerAttack = (row, column) => {
+    computerGameboard.recieveAttack(row, column);
+    updateGameboard(computerGameboard.board, playerGameboard.board);
+    checkForGameOver();
+  };
+
   const hitSpace = (row, column) => {
     if (checkForGameOver()) {
-      updateGameboard(computerGameboard.board, playerGameboard.board);
       return;
     } else {
-      computerGameboard.recieveAttack(row, column);
-      computer.autoAttack(playerGameboard);
+      playerAttack(row, column);
+      computerAttack();
     }
-    updateGameboard(computerGameboard.board, playerGameboard.board);
   };
 
   const changeSelectedShip = (ships) => {
