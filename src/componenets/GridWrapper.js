@@ -26,14 +26,15 @@ const StyledGridWrapper = styled.div`
 const pulse = keyframes`
   0% {
     transform: scale(0.5);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7)
+  }
   
   70% {
     transform: scale(1);
     box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-  
+  }
   100% {
-    transform: scale(0.7);
+    transform: scale(.7);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
 `;
