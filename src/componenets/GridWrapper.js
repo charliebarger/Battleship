@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { isObject } from "../helpers/helpers";
 import explode from "../images/explosion.png";
+
 const StyledGridWrapper = styled.div`
-  /* position: relative;
-  z-index: -1; */
+  ${({ placeShips, player }) =>
+    !placeShips &&
+    player === "player" &&
+    css`
+      transform: scale(0.9);
+    `}
+  z-index:0;
   border: 10px solid;
   border-image-slice: 1;
   border-width: 5px;
@@ -79,7 +85,14 @@ const StyledGridItem = styled.div`
     `}
 `;
 
-const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
+const GridWrapper = ({
+  gameboard,
+  player,
+  handleClick,
+  ship,
+  removeHover,
+  cssClass,
+}) => {
   function getColor(item) {
     let color;
     let border;
@@ -104,6 +117,8 @@ const GridWrapper = ({ gameboard, player, handleClick, ship, removeHover }) => {
       gridColumns={gameboard[0].length}
       gridRows={gameboard.length}
       player={player.getPlayer()}
+      placeShips={removeHover}
+      className={cssClass ? cssClass : undefined}
     >
       {gameboard.map((row, rowIndex) =>
         row.map((item, columnIndex) =>

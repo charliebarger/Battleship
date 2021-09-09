@@ -4,6 +4,7 @@ import styled from "styled-components";
 import isObject from "isobject";
 import getFleet from "../helpers/ships";
 import SetShips from "./SetShips";
+import GameOver from "./GameOver";
 const StyledGameWrapper = styled.div`
   display: flex;
   justify-content: space-around;
@@ -52,14 +53,13 @@ const GameSection = ({
   const playerAttack = (row, column) => {
     computerGameboard.recieveAttack(row, column);
     updateGameboard(computerGameboard.board, playerGameboard.board);
-    checkForGameOver();
+    return checkForGameOver();
   };
 
   const hitSpace = (row, column) => {
     if (checkForGameOver()) {
       return;
-    } else {
-      playerAttack(row, column);
+    } else if (!playerAttack(row, column)) {
       computerAttack();
     }
   };
@@ -126,6 +126,7 @@ const GameSection = ({
       ) : (
         <>
           <GridWrapper
+            cssClass="shrinkMe"
             player={player}
             gameboard={playerBoard}
             handleClick={() => {}}

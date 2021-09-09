@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledHeader = styled.header`
   height: 100px;
   background: white;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   background: #266691;
   background: radial-gradient(
     circle,

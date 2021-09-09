@@ -30,6 +30,7 @@ function App() {
           playerGameboard={playerGame}
           computerGameboard={computerGame}
           setGameOver={setGameOver}
+          gameOver={gameOver}
         />
       ) : (
         <GameOver handleClick={setGameOver} player={gameOver} />
