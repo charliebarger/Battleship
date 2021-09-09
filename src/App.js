@@ -5,10 +5,9 @@ import GolbalStyles from "./componenets/styles/normalize";
 import getFleet from "./helpers/ships";
 import { useState } from "react";
 import GameOver from "./componenets/GameOver";
+import Header from "./componenets/Header";
 function App() {
   const [gameOver, setGameOver] = useState(false);
-
-  const shipPosition = () => {};
 
   const makeNewGame = () => {
     const playerGame = gameboard();
@@ -23,6 +22,7 @@ function App() {
   return (
     <>
       <GolbalStyles />
+      <Header />
       {!gameOver ? (
         <GameSection
           computer={computer}
