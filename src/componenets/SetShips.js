@@ -19,22 +19,6 @@ const LabelWrapper = styled.div`
   }
 `;
 
-const RotateButton = styled.button`
-  cursor: pointer;
-  padding: 5px 10px;
-  font-size: 22px;
-  background: transparent;
-  border-image-slice: 1;
-  border-width: 3px;
-  border-image-source: linear-gradient(-45deg, red, #fae900);
-  background-color: white;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 5px 5px 15px 5px #000000;
-  }
-`;
-
 const SetShips = ({ gameboard, player, handleClick, ship, removeHover }) => {
   return (
     <div>

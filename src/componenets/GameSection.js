@@ -4,7 +4,6 @@ import styled from "styled-components";
 import isObject from "isobject";
 import getFleet from "../helpers/ships";
 import SetShips from "./SetShips";
-import GameOver from "./GameOver";
 const StyledGameWrapper = styled.div`
   display: flex;
   justify-content: space-around;
