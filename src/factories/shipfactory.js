@@ -8,8 +8,10 @@ const shipFactory = (length, id, color, border) => {
     rotate = !rotate;
   };
 
-  function play() {
-    var audio = new Audio("https://inception.davepedu.com/inception.mp3");
+  async function play() {
+    const audio = await new Audio(
+      "https://inception.davepedu.com/inception.mp3"
+    );
     audio.play();
   }
 
