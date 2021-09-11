@@ -1,11 +1,14 @@
 import GameSection from "./componenets/GameSection";
 import player from "./factories/player";
 import gameboard from "./factories/gameboard";
-import GolbalStyles from "./componenets/styles/normalize";
+import GolbalStyles from "./componenets/styles/globalStyles";
 import getFleet from "./helpers/ships";
 import { useState } from "react";
 import GameOver from "./componenets/GameOver";
 import Header from "./componenets/Header";
+import { ThemeProvider } from "styled-components";
+import theme from "./componenets/styles/theme";
+console.log(theme);
 function App() {
   const [gameOver, setGameOver] = useState(false);
 
@@ -20,7 +23,7 @@ function App() {
   const { playerGame, computerGame, player1, computer } = makeNewGame();
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GolbalStyles />
       <Header />
       {!gameOver ? (
@@ -33,9 +36,11 @@ function App() {
           gameOver={gameOver}
         />
       ) : (
-        <GameOver handleClick={setGameOver} player={gameOver} />
+        <div style={{ height: "calc(100vh - 140px)" }}>
+          <GameOver handleClick={setGameOver} player={gameOver} />
+        </div>
       )}
-    </>
+    </ThemeProvider>
   );
 }
 export default App;

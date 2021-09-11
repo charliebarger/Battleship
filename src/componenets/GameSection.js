@@ -8,6 +8,11 @@ import GameOver from "./GameOver";
 const StyledGameWrapper = styled.div`
   display: flex;
   justify-content: space-around;
+  padding: 0px 20px;
+  @media ${({ theme }) => theme.mediaQueries["below650"]} {
+    align-items: center;
+    flex-direction: column-reverse;
+  }
 `;
 
 const GameSection = ({
